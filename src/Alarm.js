@@ -8,7 +8,7 @@ import AlarmCard from './AlarmCard'
 class Alarm extends Component {
   constructor(props) {
     super(props);
-    this.state = {alarmArray: []}
+    this.state = {alarmArray: [], shouldAlert: false}
   }
 
   componentDidMount() {
@@ -16,12 +16,16 @@ class Alarm extends Component {
   }
 
   alarmLogic = () => {
+    if(this.state.shouldAlert) {
+      return
+    }
     let alarmArray = this.state.alarmArray;
-    alarmArray.forEach((alarm, index, array) => {
-      if (alarm.time === new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true})) {
-        console.log('ALARM!!!!!')
-      }
-    })
+    let shouldAlert = alarmArray.some((alarm, index, array) =>
+      alarm.time === new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true}))
+    if(shouldAlert) {
+      console.log('ALARM!!!');
+      this.setState({shouldAlert: true})
+    }
   }
 
   handleChangeTimePicker12 = (event, date) => {
