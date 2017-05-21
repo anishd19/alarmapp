@@ -1,0 +1,78 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background: floralwhite;
+}
+
+.stage-holder {
+  .stage {
+    height: 640px;
+    width: 360px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #1a237e !important;
+    position: relative;
+    .options-bar {
+      .option {
+        display: inline-block;
+        margin: 10px 25px;
+        cursor: pointer;
+      }
+      .name {
+        color: white;
+        font-size: 10px;
+      }
+    }
+    .add-btn {
+      position: absolute;
+      bottom: 10px;
+      left: 160px;
+    }
+  }
+}
+
+.alarm-card {
+  color: white;
+  text-align: left;
+  .row {
+    border-bottom: thin bold white;
+    .time, .toggler, .period, .arrow {
+      display: inline-block;
+    }
+    .time {
+      font-size: 60px;
+      margin: 10px 25px;
+      cursor: pointer;
+      span {
+        font-size: 20px;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+    }
+    .toggler {
+      float: right;
+      margin: 35px 25px 0;
+    }
+    .period {
+      font-weight: bold;
+      margin: 10px 25px;
+      cursor: pointer;
+    }
+    .arrow {
+      float: right;
+      margin-right: 25px;
+      cursor: pointer;
+      position: relative;
+      top: 5px;
+    }
+  }
+}
+
+svg.ap-icon {
+  color: white !important;
+  width: 20px;
+}
