@@ -12,8 +12,14 @@ class Alarm extends Component {
   }
 
   handleChangeTimePicker12 = (event, date) => {
-    // this.setState({value12: date});
     console.log('date is: ', date);
+    let alarmArray = this.state.alarmArray
+    alarmArray.push({
+      time: date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true}),
+      period: 'once',
+      status: 'on'
+    })
+    this.setState({alarmArray: alarmArray});
   };
 
   handleAddClick = () => {
@@ -21,6 +27,7 @@ class Alarm extends Component {
   };
 
   render() {
+    console.log('state in Alarm is: ', this.state)
     return (
       <div className='stage-holder'>
         <Paper className='stage' zDepth={5} >
