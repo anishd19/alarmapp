@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Paper, FloatingActionButton, TimePicker} from 'material-ui';
+import {Paper, FloatingActionButton, TimePicker, Dialog,
+        FlatButton} from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import OptionsBar from './OptionsBar'
 import AlarmCard from './AlarmCard'
@@ -16,15 +17,20 @@ class Alarm extends Component {
   }
 
   alarmLogic = () => {
-    if(this.state.shouldAlert) {
-      return
-    }
-    let alarmArray = this.state.alarmArray;
-    let shouldAlert = alarmArray.some((alarm, index, array) =>
-      alarm.time === new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true}))
-    if(shouldAlert) {
-      console.log('ALARM!!!');
-      this.setState({shouldAlert: true})
+    if(!this.state.shouldAlert) {
+      let alarmArray = this.state.alarmArray;
+      let alertIndex = null;
+      let shouldAlert = alarmArray.some((alarm, index, array) => {
+        if(alarm.time === new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true})) {
+          alertIndex = index;
+        }
+        return(alarm.time === new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true}) && alarm.status === 'on')
+      });
+
+      if(shouldAlert) {
+        console.log('ALARM!!!');
+        this.setState({shouldAlert: true, alertIndex: alertIndex})
+      }
     }
   }
 
@@ -43,8 +49,27 @@ class Alarm extends Component {
     this.refs.tp.openDialog()
   };
 
+  handleClose = () => {
+    let alarmArray = this.state.alarmArray;
+    alarmArray[this.state.alertIndex].status = 'off';
+    this.setState({alarmArray: alarmArray, shouldAlert: false, alertIndex: null});
+  };
+
   render() {
     console.log('state in Alarm is: ', this.state)
+    const actions = [
+      <FlatButton
+        label="Snooze"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Stop"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
     let AlarmCards = this.state.alarmArray.map((alarm) => <AlarmCard key={alarm.time.toString()} alarm={alarm}/>)
     return (
       <div className='stage-holder'>
@@ -59,6 +84,13 @@ class Alarm extends Component {
            format="ampm"
            onChange={this.handleChangeTimePicker12}
            ref='tp'
+          />
+          <Dialog
+            title={"ALARM!!!"}
+            actions={actions}
+            modal={true}
+            open={this.state.shouldAlert}
+            onRequestClose={this.handleClose}
           />
         </Paper>
       </div>
