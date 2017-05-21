@@ -11,6 +11,19 @@ class Alarm extends Component {
     this.state = {alarmArray: []}
   }
 
+  componentDidMount() {
+    this.timerID = setInterval(() => this.alarmLogic(), 1000);
+  }
+
+  alarmLogic = () => {
+    let alarmArray = this.state.alarmArray;
+    alarmArray.forEach((alarm, index, array) => {
+      if (alarm.time === new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true})) {
+        console.log('ALARM!!!!!')
+      }
+    })
+  }
+
   handleChangeTimePicker12 = (event, date) => {
     console.log('date is: ', date);
     let alarmArray = this.state.alarmArray
