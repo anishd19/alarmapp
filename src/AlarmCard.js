@@ -10,7 +10,7 @@ class AlarmCard extends Component {
     this.state = {isOpen: false}
   }
   render() {
-    const isOpen = this.state.isLoggedIn;
+    const isOpen = this.state.isOpen;
     let card = null;
     const styles = {
       block: {
@@ -39,7 +39,7 @@ class AlarmCard extends Component {
       card = (
         <div className='alarm-card open'>
           <div className='row'>
-            <div className='time'>1:14<span>AM</span></div>
+            <div className='time'>{this.props.alarm.time.split(' ')[0]}<span>{this.props.alarm.time.split(' ')[1]}</span></div>
             <div className='toggler'>
               <Toggle
                 thumbStyle={styles.thumbOff}
@@ -47,11 +47,12 @@ class AlarmCard extends Component {
                 thumbSwitchedStyle={styles.thumbSwitched}
                 trackSwitchedStyle={styles.trackSwitched}
                 labelStyle={styles.labelStyle}
+                defaultToggled={this.props.alarm.status === 'on'}
               />
             </div>
           </div>
           <div className='row'>
-            <div>Once</div>
+            <div className='period'>{this.props.alarm.period}</div>
             <div className='arrow'>
               <KeyboardArrowUp className='ap-icon'/>
             </div>
@@ -63,7 +64,7 @@ class AlarmCard extends Component {
       card = (
         <div className='alarm-card'>
           <div className='row'>
-            <div className='time'>1:14<span>AM</span></div>
+            <div className='time'>{this.props.alarm.time.split(' ')[0]}<span>{this.props.alarm.time.split(' ')[1]}</span></div>
             <div className='toggler'>
               <Toggle
                 thumbStyle={styles.thumbOff}
@@ -71,11 +72,12 @@ class AlarmCard extends Component {
                 thumbSwitchedStyle={styles.thumbSwitched}
                 trackSwitchedStyle={styles.trackSwitched}
                 labelStyle={styles.labelStyle}
+                defaultToggled={this.props.alarm.status === 'on'}
               />
             </div>
           </div>
           <div className='row'>
-            <div className='period'>Once</div>
+            <div className='period'>{this.props.alarm.period}</div>
             <div className='arrow'>
               <KeyboardArrowDown className='ap-icon'/>
             </div>

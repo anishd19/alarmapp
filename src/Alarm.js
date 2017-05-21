@@ -28,11 +28,12 @@ class Alarm extends Component {
 
   render() {
     console.log('state in Alarm is: ', this.state)
+    let AlarmCards = this.state.alarmArray.map((alarm) => <AlarmCard key={alarm.time.toString()} alarm={alarm}/>)
     return (
       <div className='stage-holder'>
         <Paper className='stage' zDepth={5} >
           <OptionsBar />
-          <AlarmCard />
+          {AlarmCards}
           <FloatingActionButton className='add-btn' onClick={this.handleAddClick} secondary={true}>
             <ContentAdd />
           </FloatingActionButton>
