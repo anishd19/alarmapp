@@ -1,0 +1,18 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background: floralwhite;
+}
+
+.stage-holder {
+  .stage {
+    height: 640px;
+    width: 360px;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
