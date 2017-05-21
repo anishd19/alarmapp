@@ -14,5 +14,22 @@ body {
     width: 360px;
     text-align: center;
     margin: 0 auto;
+    background-color: #1a237e !important;
+    .options-bar {
+      .option {
+        display: inline-block;
+        margin: 10px 25px;
+        cursor: pointer;
+      }
+      .name {
+        color: white;
+        font-size: 10px;
+      }
+    }
   }
+}
+
+svg.ap-icon {
+  color: white !important;
+  width: 20px;
 }
